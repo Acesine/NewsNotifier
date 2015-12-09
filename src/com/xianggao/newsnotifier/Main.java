@@ -2,12 +2,11 @@ package com.xianggao.newsnotifier;
 
 import com.xianggao.newsnotifier.notifier.Notifier;
 import com.xianggao.newsnotifier.thread.ThreadUtils;
+import org.joda.time.DateTime;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -26,6 +25,7 @@ public class Main {
         final String [] subscriptions = properties.getProperty("subscriptions").split(", ");
 
         Set<String> storedUrls = new HashSet<>();
+        Notifier.started = DateTime.now();
         while (true) {
             new Thread(new Notifier(storedUrls, subscriptions, from, pwd)).start();
             ThreadUtils.sleepQuietly(1000 * 3600);

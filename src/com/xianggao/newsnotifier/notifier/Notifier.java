@@ -24,6 +24,7 @@ public class Notifier implements Runnable {
     private final String[] to;
     private final String from;
     private final String pwd;
+    public static DateTime started;
     private Set<String> storedUrls;
 
     public Notifier(Set<String> storedUrls,
@@ -54,6 +55,10 @@ public class Notifier implements Runnable {
 
         try {
             DateTime now = DateTime.now();
+            if (now.isAfter(started.plusDays(2))) {
+                started = now;
+                storedUrls.clear();
+            }
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.setSubject("News from HN "+now.toLocalDate().toString());
