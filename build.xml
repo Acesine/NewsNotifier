@@ -1,0 +1,41 @@
+<project name="NewsNotifier" default="release" basedir=".">
+    <property name="project.name" value="NewsNotifier"/>
+    <property name="main.class" value="com.xianggao.newsnotifier.Main"/>
+    <property name="src.dir" location="src"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="build.dir" location="build"/>
+    <property name="bin.dir" location="${build.dir}/bin"/>
+    <property name="classes.dir" location="${build.dir}/classes"/>
+
+    <path id="classpath" description="Third part libs">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="init">
+        <mkdir dir="${src.dir}"/>
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${bin.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="build" depends="compile">
+
+    </target>
+
+    <target name="release" depends="build">
+        <jar jarfile="${bin.dir}/${project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="${lib.dir}/mail.jar ${lib.dir}/activation.jar ${lib.dir}/joda-time-2.9.jar"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
