@@ -28,7 +28,7 @@ public class Main {
         Notifier.started = DateTime.now();
         while (true) {
             new Thread(new Notifier(storedUrls, subscriptions, from, pwd)).start();
-            ThreadUtils.sleepQuietly(1000 * 3600);
+            ThreadUtils.sleepQuietly(1000 * 3600 * 5);
         }
 
     }
